@@ -24,6 +24,11 @@ namespace RunnerHyper
         private bool skillOnePressed;
         private bool skillTwoPressed;
         private bool skillThreePressed;
+        [SerializeField]private Rigidbody rb;
+        private bool isMoving;
+        #endregion
+        #region Particle
+        [SerializeField] private ParticlePool particlePool;
         #endregion
         private void Awake()
         {
@@ -47,18 +52,20 @@ namespace RunnerHyper
                 currentMovement = ctx.ReadValue<Vector2>();
                 currentMovement.y = (currentMovement.y < 0) ? 0 : currentMovement.y;
                 animator.SetBool(runningAnimHash, true);
+                isMoving = true;
                 HandleRotation();
             };
             playerActions.PlayerActionMap.Movement.canceled += ctx =>
             {
                 animator.SetBool(runningAnimHash, false);
+                isMoving = false;
             };
             playerActions.PlayerActionMap.SkillOne.performed += ctx =>
             {
                 if (ctx.ReadValueAsButton())
                 {
                     animator.SetTrigger(skillAnimHash);
-                    Debug.Log("Skill one");
+                    particlePool.CallSkill(0);
                 }
             };
             playerActions.PlayerActionMap.SkillTwo.performed += ctx =>
@@ -66,7 +73,7 @@ namespace RunnerHyper
                 if (ctx.ReadValueAsButton())
                 {
                     animator.SetTrigger(skillAnimHash);
-                    Debug.Log("Skill two");
+                    particlePool.CallSkill(1);
                 }
             };
             playerActions.PlayerActionMap.SkillThree.performed += ctx => 
@@ -74,20 +81,28 @@ namespace RunnerHyper
                 if (ctx.ReadValueAsButton())
                 {
                     animator.SetTrigger(skillAnimHash);
-                    Debug.Log("Skill three");
+                    particlePool.CallSkill(2);
                 }
             };
         }
         private void HandleRotation()
         {
-            currentPosition = transform.position;
-            newPosition=new Vector3(currentMovement.x, 0, currentMovement.y);
+            //currentPosition = transform.position;
+            currentPosition = rb.position;
+            newPosition =new Vector3(currentMovement.x, 0, currentMovement.y);
             positionToLookAt = currentPosition + newPosition;
             transform.LookAt(positionToLookAt);
         }
         private void OnDisable()
         {
             playerActions.PlayerActionMap.Disable();
+        }
+
+        private void FixedUpdate()
+        {
+            if (!isMoving) return;
+
+            rb.AddRelativeForce(Vector3.forward * 12, ForceMode.Impulse);
         }
     }
 }
