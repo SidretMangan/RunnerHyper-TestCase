@@ -10,9 +10,11 @@ UI-Joystick and Keyboard for 1,2 and 3 buttons.*
 *Camera Follow implemented.*
 *Animation Updated.*
 *UIManager implemented.*
+*ApplicationInitializer implemented*
 *Particles Updated.*
 *Camera Updated.*
 *Pools Updated.*
+*MonoSingleton implemented but didnt used.*
 *TagManager updated.*
 *Player prefab settled.*
 *Player ragdoll rig.*
