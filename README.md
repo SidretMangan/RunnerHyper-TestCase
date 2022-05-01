@@ -1,6 +1,7 @@
 # RunnerHyper
  Made for a company test case
 
+*Unity 2020.3.33f1 LTS version used*
 *New Input System used.*
 *Cross platform implemented with Gamepad Leftstick, 
 UI-Joystick and Keyboard for 1,2 and 3 buttons.*
