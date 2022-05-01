@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RunnerHyper
@@ -13,6 +11,7 @@ namespace RunnerHyper
         private void Start()
         {
             tempVec3= transform.position;
+            target = GameObject.FindGameObjectWithTag("Player").transform;
         }
         private void LateUpdate()
         {

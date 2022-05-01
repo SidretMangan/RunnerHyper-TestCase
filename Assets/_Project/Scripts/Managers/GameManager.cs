@@ -1,19 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RunnerHyper
 {
     public class GameManager : MonoBehaviour
     {
+        #region Managers
         private PoolManager poolManager;
         private UIManager uiManager;
+        #endregion
         private readonly WaitForSeconds wait = new WaitForSeconds(0.5f);
+        private Camera cam;
+        private RagdollDeath playerDeath;
         private void Start()
         {
             poolManager = (PoolManager)FindObjectOfType(typeof(PoolManager));
             uiManager = (UIManager)FindObjectOfType(typeof(UIManager));
             StartCoroutine(CallPoolObjs());
+            cam=Camera.main;
+            playerDeath=(RagdollDeath)FindObjectOfType(typeof(RagdollDeath));
         }
         private void CallPoolObj()
         {
@@ -25,7 +30,12 @@ namespace RunnerHyper
             while (true)
             {
                 CallPoolObj();
-                if (uiManager.seconds <= 2) yield break;
+                if (uiManager.seconds <= 1) 
+                {
+                    playerDeath.Die();
+                    cam.gameObject.GetComponent<CameraFollow>().enabled = false;
+                    yield break; 
+                }
 
                 yield return wait;
             }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,10 +18,6 @@ namespace RunnerHyper
         private Vector3 currentPosition;
         private Vector3 newPosition;
         private Vector3 positionToLookAt;
-
-        private bool skillOnePressed;
-        private bool skillTwoPressed;
-        private bool skillThreePressed;
         [SerializeField]private Rigidbody rb;
         private bool isMoving;
         #endregion
@@ -87,7 +81,6 @@ namespace RunnerHyper
         }
         private void HandleRotation()
         {
-            //currentPosition = transform.position;
             currentPosition = rb.position;
             newPosition =new Vector3(currentMovement.x, 0, currentMovement.y);
             positionToLookAt = currentPosition + newPosition;
