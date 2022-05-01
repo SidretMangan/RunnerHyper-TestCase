@@ -7,7 +7,7 @@ UI-Joystick and Keyboard for 1,2 and 3 buttons.*
 *Basic Animations.*
 *Hyper-Casual type runner character controller.*
 *Camera Follow implemented.*
-*Animation Updated.
+*Animation Updated.*
 *UIManager implemented.*
 *Particles Updated.*
 *Camera Updated.*
